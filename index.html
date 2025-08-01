@@ -57,22 +57,23 @@
       gap: 2rem;
     }
     /* Header */
-    header {
-      position: sticky;
-      top: 1rem;
-      background: rgba(20, 20, 20, 0.6);
-      backdrop-filter: blur(8px);
-      border-bottom: 2px solid #444444;
-      box-shadow: 0 0 15px #44444488;
-      padding: 1.2rem 3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 10;
-      border-radius: 40px / 50%;
-      max-width: 1200px;
-      margin-left: 400px;
-    }
+header {
+  position: sticky;
+  top: 1rem;
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(8px);
+  border-bottom: 2px solid #444444;
+  box-shadow: 0 0 15px #44444488;
+  padding: 1.2rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10;
+  border-radius: 40px / 50%;
+  max-width: 1200px;
+  margin: 1rem auto; /* Mengubah margin menjadi auto untuk centering */
+  width: calc(100% - 2rem); /* Memberikan sedikit space di sisi kanan dan kiri */
+}
       
     header .logo {
       font-size: 2rem;
