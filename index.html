@@ -309,13 +309,16 @@
 </head>
 <body>
   <video id="background-video" autoplay muted loop playsinline>
-    <source src="https://cdn.discordapp.com/attachments/1398615741191688242/1400471369321549994/be01c63e5692147323158939af52ec23.mp4?ex=688cc219&is=688b7099&hm=eb7ac7b81afb40bfc98a73b6d70ad4d1aa80a90c265df3dfade287660e404ee2&" type="video/mp4" />
+    <source src="../asset/background.mp4" type="video/mp4" />
     Your browser does not support the video tag.
   </video>
   <div id="overlay"></div>
   <header>
     <div class="logo">Arkadio Kenzie</div>
-    <nav aria-label="Primary navigation">
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-navigation">
+      <span class="hamburger"></span>
+    </button>
+    <nav id="primary-navigation" class="nav" aria-label="Primary navigation">
       <a href="#hero">Home</a>
       <a href="#about">About</a>
       <a href="#projects">Projects</a>
