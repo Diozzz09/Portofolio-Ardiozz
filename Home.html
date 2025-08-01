@@ -1,0 +1,442 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ardioz Portofolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset and base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      font-family: 'Orbitron', monospace, sans-serif;
+      background: #0a0a14;
+      color: #6a6a6c;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      position: relative;
+      z-index: 0;
+    }
+    /* Background video */
+    #background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.7) contrast(1.2) saturate(1.4);
+      pointer-events: none;
+    }
+    /* Overlay for sad mood */
+    #overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(68, 64, 70, 0.6);
+      z-index: -1;
+      pointer-events: none;
+    }
+    /* Container */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1rem 4rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+    /* Header */
+    header {
+      position: sticky;
+      top: 1rem;
+      background: rgba(20, 20, 20, 0.6);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid #444444;
+      box-shadow: 0 0 15px #44444488;
+      padding: 1.2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      border-radius: 40px / 50%;
+      max-width: 1200px;
+      margin-left: 400px;
+    }
+      
+    header .logo {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #ffffff;
+      text-shadow: 0 0 10px #bbbbbb;
+      user-select: none;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    header .logo:hover, header .logo:focus {
+      color: #7de1ff;
+      text-shadow: 0 0 20px #7de1ff, 0 0 30px #7de1ff;
+    }
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      margin-left: 1.5rem;
+      font-size: 1.1rem;
+      position: relative;
+      transition: color 0.3s ease;
+      text-shadow: 0 0 5px #bbbbbb;
+    }
+    nav a:hover, nav a:focus {
+      color: #ffffff;
+      text-shadow: 0 0 15px #ffffff;
+    }
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -4px;
+      left: 0;
+      background: #ffffff;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 8px #ffffff;
+    }
+    nav a:hover::after, nav a:focus::after {
+      width: 100%;
+    }
+    /* Hero */
+    #hero {
+      text-align: center;
+      color: #ffffff;
+      text-shadow: 0 0 15px #bbbbbb;
+      margin-top: 3rem;
+    }
+    #hero h1 {
+      font-size: 3.5rem;
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+    }
+    #hero p {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #dddddd;
+      margin-bottom: 1.5rem;
+      text-shadow: 0 0 8px #666666;
+    }
+    #hero .cta-button {
+      background: #444444;
+      color: #eeeeee;
+      font-weight: 700;
+      padding: 1rem 3rem;
+      border-radius: 9999px;
+      font-size: 1.25rem;
+      text-decoration: none;
+      box-shadow: 0 0 25px #666666;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      display: inline-block;
+    }
+    #hero .cta-button:hover, #hero .cta-button:focus {
+      background: #abfbff;
+      box-shadow: 0 0 40px #58ffff;
+    }
+    /* Sections */
+    section {
+      background: rgba(20, 20, 20, 0.7);
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 0 25px #ffffff88;
+      color: #ffffff;
+      text-shadow: none;
+      max-width: 900px;
+      margin: 0 auto 3rem;
+      border: 1px solid #ffffff;
+    }
+    section h2 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      margin-bottom: 1rem;
+      color: #ffffff;
+      text-align: center;
+      text-shadow: none;
+    }
+    section p, section ul {
+      font-size: 1.125rem;
+      line-height: 1.6;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    section ul {
+      list-style: disc inside;
+      padding-left: 0;
+    }
+    section ul li {
+      margin-bottom: 0.5rem;
+    }
+    /* Projects grid */
+    #projects .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+    #projects .project-card {
+      background: rgba(40, 40, 40, 0.9);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 0 25px #ffffffaa;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      color: #ffffff;
+      text-shadow: none;
+      border: 1px solid #ffffff;
+    }
+    #projects .project-card:hover, #projects .project-card:focus {
+      transform: translateY(-8px);
+      box-shadow: 0 0 40px #636b6bcc;
+    }
+    #projects .project-card h3 {
+  font-family: 'Orbitron', monospace, sans-serif; /* Atau ganti sesuai preferensi */
+  color: #de3232; /* Warna khas cyberpunk */
+  font-size: 2rem;
+  text-shadow: 0 0 10px #ff699e;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+    }
+
+    #projects .project-card p {
+      margin-bottom: 1rem;
+    }
+    #projects .project-card a {
+      color: #6af5ff;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1rem;
+      text-shadow: 0 0 8px #3cdfff;
+    }
+    #projects .project-card a:hover, #projects .project-card a:focus {
+      text-decoration: underline;
+    }
+    /* Skills badges */
+    #skills .skill-badge {
+      background: #444444;
+      color: #ffffff;
+      font-weight: 700;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-size: 1rem;
+      margin: 0.25rem;
+      display: inline-block;
+      box-shadow: 0 0 15px #cccccc;
+      transition: transform 0.3s ease;
+      cursor: default;
+      border: 1px solid #ffffff;
+    }
+    #skills .skill-badge:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px #eeeeee;
+    }
+    /* Contact list */
+    #contact ul {
+      list-style: none;
+      padding: 0;
+      max-width: 400px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    #contact ul li {
+      margin-bottom: 1rem;
+      font-size: 1.125rem;
+    }
+    #contact ul li a {
+      color: #7de1ff;
+      text-decoration: none;
+      font-weight: 600;
+      text-shadow: 0 0 8px #759cff;
+    }
+    #contact ul li a:hover, #contact ul li a:focus {
+      text-decoration: underline;
+    }
+    /* Footer */
+    footer {
+      background: rgba(20, 20, 20, 0.85);
+      color: #ffffff;
+      text-align: center;
+      padding: 1rem 2rem;
+      font-size: 0.875rem;
+      user-select: none;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+      text-shadow: none;
+      margin-top: auto;
+      border-top: 1px solid #ffffff;
+      border-radius: 0;
+      width: 100vw;
+      max-width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+      position: relative;
+      left: 0;
+      bottom: 0;
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav a {
+        margin-left: 1rem;
+        font-size: 1rem;
+      }
+      #hero h1 {
+        font-size: 2.5rem;
+      }
+      #hero p {
+        font-size: 1.125rem;
+      }
+      section {
+        margin: 0 1rem 2rem;
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <video id="background-video" autoplay muted loop playsinline>
+    <source src="https://cdn.discordapp.com/attachments/1398615741191688242/1400471369321549994/be01c63e5692147323158939af52ec23.mp4?ex=688cc219&is=688b7099&hm=eb7ac7b81afb40bfc98a73b6d70ad4d1aa80a90c265df3dfade287660e404ee2&" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+  <div id="overlay"></div>
+  <header>
+    <div class="logo">Arkadio Kenzie</div>
+    <nav aria-label="Primary navigation">
+      <a href="#hero">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+  <main class="container">
+    <div style="max-width: 900px; margin: 0.25rem auto 1rem; text-align: center;">
+      <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="150" style="width:100%;max-width:660px;overflow:hidden;background:transparent;border-radius: 12px; box-shadow: 0 0 15px #7de1ff;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/id/album/nina/1749943593?i=1749943602"></iframe>
+    </div>
+    <section id="hero" tabindex="0" aria-label="Introduction">
+      <img src="../asset/image.png" alt="Hero Photo" class="hero-photo" />
+      <h1>Hi, I'm a Roblox Game Developer</h1>
+      <p>Membangun solusi digital dari desain hingga implementasi.</p>
+      <a href="#projects" class="cta-button">See My Work</a>
+    </section>
+    <section id="about" tabindex="0">
+      <h2>About Me</h2>
+      <p>
+        Saya adalah seorang programmer muda dengan pengalaman kurang lebih 1,5 tahun dalam pengembangan perangkat lunak, khususnya di bidang Web Development dan Roblox Game Development. Saat ini, saya sedang menempuh pendidikan di SMKN 1 Surabaya dengan jurusan Teknik Komputer dan Jaringan (TKJ).
+        Meskipun masih remaja, saya aktif mengembangkan berbagai proyek pribadi dan freelance yang melibatkan front-end website serta scripting di platform Roblox. Fokus utama saya adalah membangun solusi digital yang interaktif, efisien, dan mudah digunakan
+      </p>
+    </section>
+    <section id="projects" tabindex="0">
+      <h2>Projects</h2>
+      <div class="projects-grid">
+        <article class="project-card" tabindex="0">
+          <h3>IDNverse | DKI JAKARTA</h3>
+          <p>IDNverse merupakan pengalaman virtual interaktif yang menghadirkan DKI Jakarta sebagai dunia digital di dalam Roblox. Pemain diajak menjelajahi model kota Jakarta—mulai dari jalanan ramai, landmark ikonik, hingga area urban yang autentik. Game ini berfokus pada simulasi kehidupan perkotaan dengan nuansa Indonesia, memungkinkan pengguna merasakan suasana kota Jakarta dalam bentuk digital</p>
+          <a href="https://www.roblox.com/id/games/120858338770111/IDNverse-DKI-Jakarta-Indonesia" aria-label="View Neon Task Manager project">View Project</a>
+        </article>
+        <article class="project-card" tabindex="0">
+          <h3>POLDA JATIM ROBLOX</h3>
+          <p>POLDA JATIM V2 adalah simulasi interaktif yang menampilkan aktivitas kepolisian Provinsi Jawa Timur di dunia Roblox. Game ini mendukung pemain berperan sebagai anggota polisi, memperkenalkan proses pelatihan, tugas tugas operasional, dan pengalaman kerja di lingkungan kepolisian secara virtual.</p>
+          <a href="https://www.roblox.com/id/games/70765378762414/POLDA-JATIM-V2" aria-label="View Sad Visualizer project">View Project</a>
+        </article>
+        <article class="project-card" tabindex="0">
+          <h3>IDNverse | Dinas pemadam kebakaran</h3>
+          <p>IFD Gulkarmat adalah simulasi pemadam kebakaran Indonesia yang merupakan "versi damkar" dari dunia IDNverse. Game ini membawa pemain ke dalam pengalaman realistis sebagai petugas pemadam kebakaran, lengkap dengan kendaraan, perlengkapan, dan misi penyelamatan yang mencerminkan situasi darurat di kota-kota Indonesia</p>
+          <a href="https://www.roblox.com/games/15902517352/IFD-Gulkarmat" aria-label="View Neon Task Manager project">View Project</a>
+        </article>
+        <article class="project-card" tabindex="0">
+          <h3>RINF | RESIMEN INDUK RINDAM JAYA</h3>
+          <p>Game ini mensimulasikan kehidupan di Resimen Induk Daerah Militer Jayakarta (Rindam Jaya) — lembaga pendidikan militer di bawah Kodam Jaya yang berlokasi di Jakarta Timur, emain diberi pengalaman roleplay sebagai prajurit trainee dan mengikuti proses pelatihan standar di markas militer</p>
+          <a href="https://www.roblox.com/id/games/99833571931293/RINF-Resimen-Induk-Kodam-Jayakarta" aria-label="View Neon Task Manager project">View Project</a>
+        </article>
+      </div>
+    </section>
+    <section id="skills" tabindex="0">
+      <h2>Skills</h2>
+      <div>
+        <span class="skill-badge" tabindex="0">JavaScript</span>
+        <span class="skill-badge" tabindex="0">HTML</span>
+        <span class="skill-badge" tabindex="0">Node.js</span>
+        <span class="skill-badge" tabindex="0">React.js</span>
+        <span class="skill-badge" tabindex="0">Tailwind CSS</span>
+        <span class="skill-badge" tabindex="0">CSS</span>
+        <span class="skill-badge" tabindex="0">Lua Devlop</span>
+        <span class="skill-badge" tabindex="0">Python</span>
+        <span class="skill-badge" tabindex="0">Roblox 3d Buiding</span>
+        <span class="skill-badge" tabindex="0">Ai Specialist</span>
+        <span class="skill-badge" tabindex="0">Data Analyst</span>
+        <span class="skill-badge" tabindex="0">Trader Saham Aktif</span>
+        <span class="skill-badge" tabindex="0">Investor Saham Aktif</span>
+      </div>
+    </section>
+   <section id="contact" tabindex="0">
+  <h2>Contact</h2>
+  <p>Feel free to reach out to me via email or social media.</p>
+  <div style="display: flex; gap: 20px; align-items: center; justify-content: center;">
+    <a href="ardioz@gmail.com" title="Email" target="_blank" rel="noopener noreferrer">
+      <img src="../asset/email-svgrepo-com.svg" alt="Email" style="width: 40px; height: 40px;">
+    </a>
+    <a href="https://instagram.com/ardiozcr_" title="Instagram" target="_blank" rel="noopener noreferrer">
+      <img src="../asset/instagram-svgrepo-com.svg" alt="Instagram" style="width: 40px; height: 40px;">
+    </a>
+    <a href="https://discord.com/users/sennzzd_" title="Discord" target="_blank" rel="noopener noreferrer">
+      <img src="../asset/discord-icon-svgrepo-com.svg" alt="Discord" style="width: 40px; height: 40px;">
+    </a>
+  </div>
+</section>
+<style>
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav a {
+        margin-left: 1rem;
+        font-size: 1rem;
+      }
+      #hero h1 {
+        font-size: 2.5rem;
+      }
+      #hero p {
+        font-size: 1.125rem;
+      }
+      section {
+        margin: 0 1rem 2rem;
+        padding: 1.5rem;
+      }
+    }
+    /* Hero photo frame */
+    .hero-photo {
+      display: block;
+      margin: 0 auto 1.5rem;
+      width: 200px;
+      height: 200px;
+      object-fit: cover;
+      border: 4px solid #7de1ff;
+      border-radius: 50%;
+      box-shadow: 0 0 20px #7de1ff;
+    }
+    /* Contact icons hover animation */
+    #contact a img {
+      transition: transform 0.3s ease, filter 0.3s ease;
+      cursor: pointer;
+    }
+    #contact a:hover img,
+    #contact a:focus img {
+      transform: scale(1.2);
+      filter: drop-shadow(0 0 6px #7de1ff);
+    }
+</style>
+</head>
+</html>
